@@ -31,3 +31,4 @@ markdown_extensions:
 
 nav:
   - Introduction: index.md
+  - Test: test.md
