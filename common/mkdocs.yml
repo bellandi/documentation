@@ -1,0 +1,34 @@
+site_name: Common Documentation
+site_url: 'https://bellandi.github.io/documentation'
+use_directory_urls: true
+theme:
+  name: material
+  features:
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+    - navigation.instant
+    - navigation.path
+    - navigation.sections
+    - search.suggest
+    - search.highlight
+  plugins:
+    - offline
+markdown_extensions:
+  - admonition
+  - attr_list
+ # - pymdownx.emoji:
+ #     emoji_index: !!python/name:material.extensions.emoji.twemoji
+ #     emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Introduction: index.md
+  #- Project 1: /documentation/project1/latest

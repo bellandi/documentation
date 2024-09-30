@@ -1,0 +1,43 @@
+name: Deploy Common Documentation with mike and mkdocs
+
+on:
+  workflow_dispatch:
+     inputs:
+      project1-version:
+        description: 'version to deploy'
+        required: false
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: 3.x
+
+    - name: Configure Git Credentials
+      run: |
+        git config user.name "${GITHUB_ACTOR}"
+        git config user.email "${GITHUB_ACTOR}@users.noreply.${GITHUB_DOMAIN:-"github.com"}"
+
+    - name: Install dependencies
+      run: |
+        pip install mkdocs-material
+        pip install mike
+
+    - name: Pubilsh common documentation
+      run: |
+        cd common
+        mkdocs gh-deploy --force
+
+    - name: Publish project1 documentation
+      if: inputs.project1-version
+      run: |
+        pwd
+        cd project1
+        mike deploy --push --deploy-prefix project1 --update-aliases ${{ inputs.project1-version }} latest
+        mike set-default --push --deploy-prefix project1 latest
