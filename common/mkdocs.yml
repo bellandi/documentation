@@ -31,4 +31,4 @@ markdown_extensions:
 
 nav:
   - Introduction: index.md
-  #- Project 1: /documentation/project1/latest
+  - Project 1: /documentation/project1/latest
