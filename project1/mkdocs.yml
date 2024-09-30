@@ -1,7 +1,7 @@
 site_name: Project 1 Documentation
 site_url: 'https://bellandi.github.io/documentation/project1'
 #repo_url: https://github.com/bellandi/documentation/tree/main/project1
-use_directory_urls: false
+use_directory_urls: true
 extra:
   version:
     provider: mike
