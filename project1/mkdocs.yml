@@ -34,5 +34,5 @@ markdown_extensions:
       alternate_style: true
 
 nav:
-  - Home: index.md
+  - Home: home.md
   - Test: test.md
