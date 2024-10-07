@@ -17,32 +17,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-
-    - uses: actions/setup-python@v5
+    - name: Checkout repository
+      uses: actions/checkout@v4
       with:
-        python-version: 3.x
+        fetch-depth: 0
 
-    - name: Configure Git Credentials
-      run: |
-        git config user.name "${GITHUB_ACTOR}"
-        git config user.email "${GITHUB_ACTOR}@users.noreply.${GITHUB_DOMAIN:-"github.com"}"
+    - name: Set up Python environment
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
 
     - name: Install dependencies
       run: |
         pip install mkdocs-material
         pip install mike
 
- #   - name: Delete project1 version ${{ inputs.project1-version-to-delete }}
- #     if: inputs.project1-version-to-delete
- #     run: |
- #       cd project1
- #       mike delete --push --deploy-prefix project1 ${{ inputs.project1-version-to-delete }}
-        
+    - name: Fetch gh-pages branch
+      run: |
+        git fetch origin gh-pages --depth=1
+
     - name: Publish project1 documentation
       if: inputs.project1-version
       run: |
-        pwd
         cd project1
         mike deploy --push --deploy-prefix project1 --update-aliases ${{ inputs.project1-version }} latest
         mike set-default --push --deploy-prefix project1 latest

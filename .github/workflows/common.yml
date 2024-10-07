@@ -1,0 +1,64 @@
+name: Deploy Common Documentation With MkDocs to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'common/**'
+
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python environment
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install MkDocs and dependencies
+      run: |
+        pip install mkdocs
+        pip install mkdocs-material
+
+    - name: Build the MkDocs site
+      run: |
+        cd common
+        mkdocs build
+
+    - name: Check if gh-pages branch exists
+      run: |
+        if git ls-remote --heads origin gh-pages; then
+          echo "Branch gh-pages exists"
+        else
+          echo "Branch gh-pages does not exist, creating it..."
+          git checkout --orphan gh-pages
+          git rm -rf .
+          git commit --allow-empty -m "Create gh-pages branch"
+          git push origin gh-pages
+        fi
+
+    - name: Checkout gh-pages branch
+      run: |
+        git fetch origin gh-pages:gh-pages
+        git checkout gh-pages
+
+    - name: Copy new site files to gh-pages, merging with existing content
+      run: |
+        rsync -av --delete common/site/ .
+
+    - name: Commit and push changes
+      run: |
+        git config user.name "${GITHUB_ACTOR}"
+        git config user.email "${GITHUB_ACTOR}@users.noreply.${GITHUB_DOMAIN:-"github.com"}"
+        git add .
+        git commit -m "Update common documentation"
+        git push origin gh-pages
