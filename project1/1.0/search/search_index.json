@@ -1,0 +1,1 @@
+{"config":{"lang":["en"],"separator":"[\\s\\-]+","pipeline":["stopWordFilter"]},"docs":[{"location":"index.html","title":"Project 1 Documentation","text":"<p>Project 1 documentation</p>"},{"location":"test.html","title":"Test 1 Project1","text":"<p>Test 1 Project1</p>"},{"location":"test2.html","title":"Test 2 Project1","text":"<p>Test 2 Project1</p>"}]}
