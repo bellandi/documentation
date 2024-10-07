@@ -46,7 +46,7 @@ jobs:
 
     - name: Copy new site files to gh-pages, merging with existing content
       run: |
-        rsync -av --delete common/site/ .
+        mv common/site/* .
 
     - name: Commit and push changes
       run: |
