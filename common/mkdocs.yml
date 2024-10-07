@@ -31,4 +31,4 @@ markdown_extensions:
 
 nav:
   - Introduction: index.md
-  - Test: test.md
+  #- Test: test.md
