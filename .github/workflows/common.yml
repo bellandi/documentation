@@ -46,7 +46,8 @@ jobs:
 
     - name: Copy new site files to gh-pages, merging with existing content
       run: |
-        mv common/site/* .
+        cp -r common/site/* .
+        rm -rf common/site
 
     - name: Commit and push changes
       run: |
