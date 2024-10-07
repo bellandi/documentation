@@ -29,10 +29,14 @@ jobs:
         pip install mkdocs-material
         pip install mike
 
+    - run: git fetch origin gh-pages --depth=1
+
     - name: Pubilsh common documentation
       run: |
         cd common
         mkdocs gh-deploy --force
+
+    - run: git fetch origin gh-pages --depth=1
 
     - name: Publish project1 documentation
       if: inputs.project1-version
