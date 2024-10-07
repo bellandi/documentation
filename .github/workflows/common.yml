@@ -34,17 +34,10 @@ jobs:
         cd common
         mkdocs build
 
-    - name: Check if gh-pages branch exists
+    - name: Configure Git Credentials
       run: |
-        if git ls-remote --heads origin gh-pages; then
-          echo "Branch gh-pages exists"
-        else
-          echo "Branch gh-pages does not exist, creating it..."
-          git checkout --orphan gh-pages
-          git rm -rf .
-          git commit --allow-empty -m "Create gh-pages branch"
-          git push origin gh-pages
-        fi
+        git config user.name "${GITHUB_ACTOR}"
+        git config user.email "${GITHUB_ACTOR}@users.noreply.${GITHUB_DOMAIN:-"github.com"}"
 
     - name: Checkout gh-pages branch
       run: |
@@ -57,8 +50,6 @@ jobs:
 
     - name: Commit and push changes
       run: |
-        git config user.name "${GITHUB_ACTOR}"
-        git config user.email "${GITHUB_ACTOR}@users.noreply.${GITHUB_DOMAIN:-"github.com"}"
         git add .
         git commit -m "Update common documentation"
         git push origin gh-pages
