@@ -1,0 +1,49 @@
+name: Deploy Project2 Documentation with mike and mkdocs
+
+on:
+  workflow_dispatch:
+    inputs:
+      project2-version:
+        description: 'version to deploy'
+        required: false
+        type: string
+     # project2-version-to-delete:
+     #   description: 'version to delete'
+     #   required: false
+     #   type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python environment
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        pip install mkdocs-material
+        pip install mike
+
+    - name: Configure Git Credentials
+      run: |
+        git config user.name "${GITHUB_ACTOR}"
+        git config user.email "${GITHUB_ACTOR}@users.noreply.${GITHUB_DOMAIN:-"github.com"}"
+
+    - name: Fetch gh-pages branch
+      run: |
+        git fetch origin gh-pages --depth=1
+
+    - name: Publish project2 documentation
+      if: inputs.project2-version
+      run: |
+        cd project2
+        mike deploy --push --deploy-prefix project2 --update-aliases ${{ inputs.project2-version }} latest
+        mike set-default --push --deploy-prefix project2 latest

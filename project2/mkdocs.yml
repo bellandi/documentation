@@ -1,5 +1,10 @@
-site_name: Common Documentation
+site_name: Project 2 Documentation
+site_url: 'https://bellandi.github.io/documentation/project2'
+#repo_url: https://github.com/bellandi/documentation/tree/main/project2
 use_directory_urls: false
+extra:
+  version:
+    provider: mike
 theme:
   name: material
   features:
@@ -29,5 +34,7 @@ markdown_extensions:
       alternate_style: true
 
 nav:
-  - Introduction: index.md
-  #- Project 1: /project1/latest
+  - Home Project2: index.md
+  - Test1 Project2: test.md
+  - Test2 Project2: test2.md
+  - Test3 Project2: test3.md
