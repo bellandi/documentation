@@ -32,3 +32,5 @@ markdown_extensions:
 nav:
   - Introduction: index.md
   - Test: test.md
+  - Project1: /documentation/project1/latest
+  - Project2: /documentation/project2/latest
